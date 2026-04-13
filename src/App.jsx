@@ -51,6 +51,7 @@ export default function App() {
   };
 
   const moduleMeta = MODULE_META[activeView.module] || { label: activeView.module, color: 'blue' };
+  const isHome = activeView.view === 'home_dashboard';
 
   const openLoan = (loanNum) => {
     setLoanNumber(loanNum);
@@ -80,7 +81,7 @@ export default function App() {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${isHome ? 'no-context' : ''}`}>
       <TopBar activeLoan={loanNumber} onSelectLoan={(n) => { setLoanNumber(n); setCaller(null); setCurrentScreenPopId(null); }} />
       <Sidebar activeView={activeView} onNavigate={setActiveView} />
 
@@ -96,7 +97,7 @@ export default function App() {
         </div>
       </div>
 
-      <ContextPanel loan={loan} caller={caller} activeView={activeView} />
+      {!isHome && <ContextPanel loan={loan} caller={caller} activeView={activeView} />}
 
       <ScreenPopOverlay
         pop={screenPop}
