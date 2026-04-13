@@ -91,8 +91,10 @@ export default function App() {
 
       <ScreenPopOverlay
         pop={screenPop}
+        loan={loan}
+        loading={loading}
         onAccept={handleAcceptPop}
-        onDismiss={() => setScreenPop(null)}
+        onDismiss={() => { if (screenPop) markScreenPopConsumed(screenPop.id); setScreenPop(null); }}
       />
     </div>
   );
