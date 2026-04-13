@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { formatCurrency, formatDate, formatShortDate, LOAN_STATUS_LABELS, LOAN_STATUS_COLORS } from '../../lib/constants';
+import SmsComposer from '../SmsComposer';
 
 export default function LoanOverview({ loan }) {
+  const [smsOpen, setSmsOpen] = useState(false);
   const b = loan.borrower;
   const p = loan.property;
   const ea = loan.escrow_account;
@@ -26,7 +29,11 @@ export default function LoanOverview({ loan }) {
 
       <div className="grid-2">
         <div className="card">
-          <div className="card-header"><h2>Borrower</h2></div>
+          <div className="card-header">
+            <h2>Borrower</h2>
+            <span className="spacer" />
+            <button className="btn sm primary" onClick={() => setSmsOpen(true)}>✉ Send SMS</button>
+          </div>
           <div className="card-body">
             <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--navy)' }}>{b.first_name} {b.last_name}</div>
             <div className="text-dim" style={{ marginBottom: 8 }}>SSN ***-**-{b.ssn_last4} · DOB {formatShortDate(b.date_of_birth)}</div>
@@ -123,6 +130,8 @@ export default function LoanOverview({ loan }) {
           </div>
         </div>
       </div>
+
+      {smsOpen && <SmsComposer loan={loan} onClose={() => setSmsOpen(false)} />}
     </div>
   );
 }

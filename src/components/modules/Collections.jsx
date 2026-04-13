@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { formatCurrency, formatShortDate, COMPLIANCE_LABELS } from '../../lib/constants';
+import SmsComposer from '../SmsComposer';
 
 export default function Collections({ loan, onReferLossMit }) {
+  const [smsOpen, setSmsOpen] = useState(false);
   const c = Array.isArray(loan.collections_case) ? loan.collections_case[0] : loan.collections_case;
   const flags = loan.compliance_flags || [];
   const interactions = (loan.interactions || []).filter((i) => i.topic === 'collections')
@@ -53,7 +56,8 @@ export default function Collections({ loan, onReferLossMit }) {
             </div>
             <div style={{ marginTop: 12 }}>
               <button className="btn primary" onClick={onReferLossMit}>→ Refer to Loss Mitigation</button>{' '}
-              <button className="btn">Offer Payment Plan</button>
+              <button className="btn">Offer Payment Plan</button>{' '}
+              <button className="btn" onClick={() => setSmsOpen(true)}>✉ Send Payment Reminder SMS</button>
             </div>
           </div>
         </div>
@@ -126,6 +130,15 @@ export default function Collections({ loan, onReferLossMit }) {
           </table>
         </div>
       </div>
+
+      {smsOpen && (
+        <SmsComposer
+          loan={loan}
+          title="Send Payment Reminder"
+          presetMessage={`Hi ${loan.borrower?.first_name || ''}, this is a friendly reminder from your loan servicer. Your loan ${loan.loan_number} is currently ${c.days_delinquent} days past due (${formatCurrency(c.total_amount_due)}). We have options to help — please call us or reply to discuss a payment plan.`}
+          onClose={() => setSmsOpen(false)}
+        />
+      )}
     </div>
   );
 }

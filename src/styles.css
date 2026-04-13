@@ -603,6 +603,75 @@ table.dense td.num   { font-family: var(--font-mono); text-align: right; }
 }
 
 /* ============================================================
+   SMS Composer Modal
+   ============================================================ */
+.sms-modal {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  width: 520px;
+  max-width: 92vw;
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  animation: popin 200ms ease-out;
+  z-index: 1001;
+}
+.sms-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.sms-modal-head .btn {
+  padding: 2px 10px;
+  font-size: 20px;
+  line-height: 1;
+}
+.sms-modal-body { padding: 16px 22px; }
+.sms-field { display: block; margin-bottom: 14px; }
+.sms-field .label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-dim); margin-bottom: 4px;
+}
+.sms-field input,
+.sms-field textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text);
+  box-sizing: border-box;
+}
+.sms-field input:focus,
+.sms-field textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.sms-field textarea { resize: vertical; min-height: 120px; }
+.sms-meta {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  text-align: right;
+}
+.sms-modal-foot {
+  padding: 12px 22px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* ============================================================
    Home Dashboard
    ============================================================ */
 .home-dash { padding: 4px 2px 20px; }

@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { formatCurrency, formatShortDate, daysBetween, COMPLIANCE_LABELS } from '../../lib/constants';
+import SmsComposer from '../SmsComposer';
 
 export default function LossMitigation({ loan }) {
+  const [smsOpen, setSmsOpen] = useState(false);
   const lm = Array.isArray(loan.lossmit_case) ? loan.lossmit_case[0] : loan.lossmit_case;
   const flags = loan.compliance_flags || [];
 
@@ -122,7 +125,7 @@ export default function LossMitigation({ loan }) {
         <div className="card-body">
           <div className="row gap8">
             <button className="btn primary">Approve Extension</button>
-            <button className="btn">Request Additional Docs</button>
+            <button className="btn" onClick={() => setSmsOpen(true)}>✉ Send BRP Doc Request SMS</button>
             <button className="btn">Send to GSE for NPV</button>
             <button className="btn danger">Deny (with reason)</button>
           </div>
@@ -131,6 +134,13 @@ export default function LossMitigation({ loan }) {
           </div>
         </div>
       </div>
+
+      {smsOpen && (() => {
+        const outstanding = brpDocs.filter((d) => d.status !== 'received').map((d) => d.document_name);
+        const docList = outstanding.length > 0 ? outstanding.join(', ') : 'documents previously requested';
+        const preset = `Hi ${loan.borrower?.first_name || ''}, this is your loss mitigation SPOC ${lm.spoc_name || ''}. To complete your ${lm.case_type?.replace(/_/g,' ')} review for case ${lm.case_number}, please upload the following: ${docList}. Deadline: ${formatShortDate(lm.forbearance_end)}. Upload via Servicing Digital or reply for help.`;
+        return <SmsComposer loan={loan} title="Send BRP Document Request" presetMessage={preset} onClose={() => setSmsOpen(false)} />;
+      })()}
     </div>
   );
 }
