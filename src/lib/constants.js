@@ -21,6 +21,7 @@ export const LOAN_STATUS_COLORS = {
 };
 
 export const MODULE_META = {
+  home:             { label: 'Home',             color: 'blue'   },
   customer_service: { label: 'Customer Service', color: 'blue'   },
   collections:      { label: 'Collections',      color: 'orange' },
   loss_mitigation:  { label: 'Loss Mitigation',  color: 'red'    },
@@ -29,6 +30,7 @@ export const MODULE_META = {
 };
 
 export const VIEW_LABELS = {
+  home_dashboard:          'Dashboard',
   loan_overview:           'Loan Overview',
   payment_history:         'Payment History',
   escrow_detail:           'Escrow Detail',

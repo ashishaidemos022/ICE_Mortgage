@@ -1,5 +1,11 @@
 const NAV = [
   {
+    title: 'Dashboard',
+    items: [
+      { view: 'home_dashboard',  module: 'home',             label: 'Home',            glyph: '⌂' },
+    ],
+  },
+  {
     title: 'Loan Navigation',
     items: [
       { view: 'loan_overview',   module: 'customer_service', label: 'Loan Overview',   glyph: '◉' },

@@ -7,6 +7,7 @@ import { useLoanData } from './hooks/useLoanData';
 import { useScreenPop, markScreenPopConsumed } from './hooks/useScreenPop';
 import { VIEW_LABELS, MODULE_META } from './lib/constants';
 
+import HomeDashboard from './components/modules/HomeDashboard';
 import LoanOverview from './components/modules/LoanOverview';
 import PaymentHistory from './components/modules/PaymentHistory';
 import EscrowDetail from './components/modules/EscrowDetail';
@@ -18,7 +19,7 @@ import PayoffRefi from './components/modules/PayoffRefi';
 import NotesDisposition from './components/modules/NotesDisposition';
 
 const DEFAULT_LOAN = '10478293';
-const DEFAULT_VIEW = { module: 'customer_service', view: 'loan_overview' };
+const DEFAULT_VIEW = { module: 'home', view: 'home_dashboard' };
 
 export default function App() {
   const [loanNumber, setLoanNumber] = useState(DEFAULT_LOAN);
@@ -51,7 +52,15 @@ export default function App() {
 
   const moduleMeta = MODULE_META[activeView.module] || { label: activeView.module, color: 'blue' };
 
+  const openLoan = (loanNum) => {
+    setLoanNumber(loanNum);
+    setActiveView({ module: 'customer_service', view: 'loan_overview' });
+  };
+
   const renderView = () => {
+    if (activeView.view === 'home_dashboard') {
+      return <HomeDashboard onOpenLoan={openLoan} />;
+    }
     if (loading) return <div className="content-empty">Loading loan {loanNumber}…</div>;
     if (error)   return <div className="alert red"><div><div className="title">Error</div><div className="detail">{error.message}</div></div></div>;
     if (!loan)   return <div className="content-empty">No loan found for {loanNumber}.</div>;
