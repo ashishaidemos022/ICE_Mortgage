@@ -880,3 +880,28 @@ table.dense td.num   { font-family: var(--font-mono); text-align: right; }
 .compliance-chip.ok      { color: var(--green); border-color: var(--green-soft); }
 .compliance-chip.warning { color: var(--amber); border-color: var(--amber-soft); background: var(--amber-soft); }
 .compliance-chip.blocked { color: var(--red);   border-color: var(--red-soft);   background: var(--red-soft); }
+
+.phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: inherit;
+  border-bottom: 1px dashed transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+  user-select: none;
+}
+.phone-link:hover { color: var(--blue); border-bottom-color: var(--blue); }
+.phone-link:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
+.phone-link.calling { color: var(--amber); border-bottom-color: var(--amber); }
+.phone-link.success { color: var(--green); border-bottom-color: var(--green); }
+.phone-link.error   { color: var(--red);   border-bottom-color: var(--red); }
+.phone-link-icon    { font-size: 0.9em; opacity: 0.8; }
+.phone-link-status  {
+  margin-left: 6px;
+  font-size: 10px;
+  font-family: var(--font-body, inherit);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}

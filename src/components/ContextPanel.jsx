@@ -1,4 +1,5 @@
 import { formatCurrency, formatShortDate, LOAN_STATUS_LABELS, LOAN_STATUS_COLORS, MODULE_META, VIEW_LABELS } from '../lib/constants';
+import PhoneLink from './PhoneLink';
 
 export default function ContextPanel({ loan, caller, activeView }) {
   if (!loan) {
@@ -21,7 +22,7 @@ export default function ContextPanel({ loan, caller, activeView }) {
     <div className="context">
       <div className="caller-identity">
         <div className="name">{caller?.name || `${b.first_name} ${b.last_name}`}</div>
-        <div className="phone">{caller?.phone || b.phone}</div>
+        <div className="phone"><PhoneLink phone={caller?.phone || b.phone} loan={loan} showIcon={false} /></div>
         {caller?.auth_method && (
           <div className="auth">
             <span className="upper" style={{ fontSize: 10 }}>{caller.auth_method.replace(/_/g, ' ')}</span>

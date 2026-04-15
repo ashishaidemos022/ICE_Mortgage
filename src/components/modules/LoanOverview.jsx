@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { formatCurrency, formatDate, formatShortDate, LOAN_STATUS_LABELS, LOAN_STATUS_COLORS } from '../../lib/constants';
 import SmsComposer from '../SmsComposer';
+import CallButton from '../CallButton';
+import PhoneLink from '../PhoneLink';
 
 export default function LoanOverview({ loan }) {
   const [smsOpen, setSmsOpen] = useState(false);
@@ -32,13 +34,14 @@ export default function LoanOverview({ loan }) {
           <div className="card-header">
             <h2>Borrower</h2>
             <span className="spacer" />
-            <button className="btn sm primary" onClick={() => setSmsOpen(true)}>✉ Send SMS</button>
+            <CallButton loan={loan} className="btn sm" />
+            <button className="btn sm primary" style={{ marginLeft: 6 }} onClick={() => setSmsOpen(true)}>✉ Send SMS</button>
           </div>
           <div className="card-body">
             <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--navy)' }}>{b.first_name} {b.last_name}</div>
             <div className="text-dim" style={{ marginBottom: 8 }}>SSN ***-**-{b.ssn_last4} · DOB {formatShortDate(b.date_of_birth)}</div>
             <div className="data-grid">
-              <div className="label">Phone</div>        <div className="value mono">{b.phone}</div>
+              <div className="label">Phone</div>        <div className="value mono"><PhoneLink phone={b.phone} loan={loan} /></div>
               <div className="label">Email</div>        <div className="value" style={{ fontSize: 11 }}>{b.email}</div>
               <div className="label">Mailing</div>      <div className="value" style={{ fontSize: 11 }}>{b.mailing_address}</div>
             </div>

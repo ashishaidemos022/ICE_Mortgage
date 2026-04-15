@@ -1,5 +1,6 @@
 import { MODULE_META, VIEW_LABELS } from '../lib/constants';
 import LoanOverview from './modules/LoanOverview';
+import PhoneLink from './PhoneLink';
 
 export default function ScreenPopOverlay({ pop, loan, loading, onAccept, onDismiss }) {
   if (!pop) return null;
@@ -14,7 +15,7 @@ export default function ScreenPopOverlay({ pop, loan, loading, onAccept, onDismi
           <div className="overlay-head-left">
             <div className="label"><span className="pulse" /> Incoming Call · {pop.queue || 'Main Queue'}</div>
             <div className="caller">{pop.caller_name}</div>
-            <div className="phone">{pop.caller_phone}</div>
+            <div className="phone"><PhoneLink phone={pop.caller_phone} loan={loan} showIcon={false} /></div>
           </div>
           <div className="overlay-head-right">
             <div className="row"><span className="lbl">Loan Number</span> <span className="val mono">{pop.loan_number}</span></div>

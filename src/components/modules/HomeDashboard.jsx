@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { formatCurrency, formatShortDate, MODULE_META } from '../../lib/constants';
+import PhoneLink from '../PhoneLink';
 
 const PORTFOLIO = {
   total_loans:          48273,
@@ -240,7 +241,7 @@ export default function HomeDashboard({ onOpenLoan }) {
                     return (
                       <tr key={p.id} onClick={() => onOpenLoan?.(p.loan_number)} style={{ cursor: 'pointer' }}>
                         <td className="mono text-dim">{new Date(p.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
-                        <td>{p.caller_name}<div className="text-dim mono" style={{ fontSize: 10 }}>{p.caller_phone}</div></td>
+                        <td>{p.caller_name}<div className="text-dim mono" style={{ fontSize: 10 }}><PhoneLink phone={p.caller_phone} showIcon={false} /></div></td>
                         <td className="mono">{p.loan_number}</td>
                         <td>{(p.intent || 'general').replace(/_/g, ' ')}</td>
                         <td><span className={`badge ${meta.color}`}>{meta.label}</span></td>
